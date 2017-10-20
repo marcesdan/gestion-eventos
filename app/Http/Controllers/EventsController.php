@@ -68,6 +68,7 @@ class EventsController extends Controller
             $event->nombre      = Input::get('nombre');
             $event->descripcion = Input::get('descripcion');
             $event->fecha       = Input::get('fecha');
+            $event->sede_id     = Input::get('sede_id');
             $event->save();
 
             // redirect
@@ -107,7 +108,9 @@ class EventsController extends Controller
         // show the edit form and pass the event
         return View::make('events.edit')
             ->with('event', $event)
-            ->with('sedes', $sedes);
+            ->with('sedes', $sedes)
+            ->with('selectedSede', $event->sede);
+            //->with('sede_nombre', $event->sede()->nombre);
     }
 
     /**
@@ -138,6 +141,7 @@ class EventsController extends Controller
             $event->nombre      = Input::get('nombre');
             $event->descripcion = Input::get('descripcion');
             $event->fecha       = Input::get('fecha');
+            $event->sede_id     = Input::get('sede_id');
             $event->save();
 
             // redirect

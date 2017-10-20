@@ -5,17 +5,16 @@
       <div class="col-md-6 col-md-offset-3">
         <h1>Creación de eventos</h1>
         @include('partials/errors')
+
         <form method="POST" action="{{ url('events') }}" class="form">
           {!! csrf_field() !!}
           <div class="form-group row">
             <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" class="form-control" placeholder="nombre del evento">            
+            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="nombre del evento" value="{{ old('nombre') }}">   
           </div>
           <div class="form-group row">
-            <label for="nombre">Descripcion</label>
-            <textarea name="descripcion" class="form-control" placeholder="descripcion del evento">
-              {{old('descripcion')}}
-            </textarea>
+            <label for="descripcion">Descripcion</label>
+            <textarea name="descripcion" id="descripcion" class="form-control" placeholder="descripcion del evento">{{ old('descripcion') }}</textarea>
           </div>
           
           <div class="form-group row">  
@@ -25,14 +24,14 @@
                   <option value=" {{ $sede->id }} ">{{ $sede->nombre }}</option>
                 @endforeach
               @else
-                No Record Found
+                <option value="No Record Found" selected="selected"></option>
               @endif   
           </select>
           </div>
 
           <div class="form-group row">
             <label for="fecha">Fecha y hora</label>
-            <input name="fecha" class="form-control" type="datetime-local" id="fecha">
+            <input name="fecha" class="form-control" type="datetime-local" id="fecha" value="{{ old('fecha') }}">
           </div>
           <div class="form-group row">
           <button type="submit" class="btn btn-primary">Crear evento</button>

@@ -1,7 +1,6 @@
 @extends('layout')
 @section('content')
-  <div class="container-fluid">
-    <h1> Eventos </h1>
+  <h1> Asistentes: </h1>
   <p>
     <a href="{{ url('events/create') }}">Agregar un evento</a>
   </p>
@@ -18,5 +17,4 @@
       @endforeach
   </ul>
     {!! $events->render("pagination::bootstrap-4") !!}
-  </div>
 @endsection
