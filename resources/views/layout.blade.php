@@ -10,24 +10,24 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <style>
-    body{
-    margin-top: 80px;
-    }
+      body{
+        margin-top: 20px;
+      }
     </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#">Laravel</a>
+      <a class="navbar-brand" href="welcome">Laravel</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="">Eventos <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="events">Eventos <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">Asistentes</a>
+            <a class="nav-link" href="asistentes">Asistentes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#">Disabled</a>
@@ -47,11 +47,14 @@
         </form>
       </div>
     </nav>
-    <div class="container">
-      @yield('content')
-      <hr>
-      <p> &copy; 2017 - marcesdan </p>
+
+    <div class="jumbotron">
+      <div class="container">
+        @yield('content')
+        <hr>
       </div><!-- /.container -->
+    </div>
+
       <!-- Bootstrap core JavaScript
       ================================================== -->
       <!-- Placed at the end of the document so the pages load faster -->

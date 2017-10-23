@@ -2,7 +2,8 @@
 @section('content')
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <h1>Edición de eventos</h1>
+    <h1 class="display-4">Edición de eventos</h1>
+    <hr>
     @include('partials/errors')
     @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -21,6 +22,7 @@
         <textarea name="descripcion" class="form-control">{{ $event->descripcion }}</textarea>
       </div>
       <div class="form-group row">
+        <label for="sede">Sede</label>
         <select class="form-control" name="sede_id">
           @if($sedes->count() > 0)
           <option value="{{ $selectedSede->id }}" selected="selected">{{ $selectedSede->nombre }}</option>
