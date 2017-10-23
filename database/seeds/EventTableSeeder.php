@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Event;
 use App\Sede;
+use App\Contacto;
 
 class EventTableSeeder extends Seeder
 {

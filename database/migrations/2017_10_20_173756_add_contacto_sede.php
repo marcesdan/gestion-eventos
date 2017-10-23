@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableAsistente extends Migration
+class AddContactoSede extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateTableAsistente extends Migration
      */
     public function up()
     {
-        Schema::table('asistente', function (Blueprint $table) {
-            //
+        Schema::table('sedes', function (Blueprint $table) {
+            $table -> unsignedInteger('contacto_id') -> index() -> after('nombre');
         });
     }
 
@@ -25,8 +25,8 @@ class CreateTableAsistente extends Migration
      */
     public function down()
     {
-        Schema::table('asistente', function (Blueprint $table) {
-            //
+        Schema::table('sedes', function (Blueprint $table) {
+            $table -> dropColumn('contacto_id');
         });
     }
 }

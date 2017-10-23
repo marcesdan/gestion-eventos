@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Sede;
+use App\Contacto;
 
 class SedeTableSeeder extends Seeder
 {
@@ -12,10 +13,12 @@ class SedeTableSeeder extends Seeder
      */
     public function run()
     {
-      	Sede::create(['nombre' => 'Kanga']);
-		Sede::create(['nombre' => 'RRHH']);
-		Sede::create(['nombre' => 'Yrigoyen']);
-		Sede::create(['nombre' => 'Onas']);
-		Sede::create(['nombre' => 'Pipo']);
+        $contactos = Contacto::all();
+        
+        Sede::create(['nombre' => 'Kanga', 'contacto_id' => $contactos->random()->id]);
+        Sede::create(['nombre' => 'RRHH', 'contacto_id' => $contactos->random()->id]);
+        Sede::create(['nombre' => 'Yrigoyen', 'contacto_id' => $contactos->random()->id]);
+        Sede::create(['nombre' => 'Onas', 'contacto_id' => $contactos->random()->id]);
+        Sede::create(['nombre' => 'Pipo', 'contacto_id' => $contactos->random()->id]);  
     }
 }

@@ -22,6 +22,14 @@
           <div class="form-group row">
           <button type="submit" class="btn btn-primary">Editar asistente</button>
           </div>
+           <div class="form-group row">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="email@ejemplo.com" value="{{ old('documento') }}">   
+          </div>
+          <div class="form-group row">
+            <label for="telefono">Teléfono</label>
+            <input type="number" name="telefono" id="telefono" class="form-control" placeholder="telefono" value="{{ old('documento') }}">   
+          </div>
         </form>
       </div>
   </div>

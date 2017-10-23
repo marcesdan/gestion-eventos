@@ -21,3 +21,20 @@ $factory->define(App\Event::class, function (Faker $faker) {
         'fecha' => $faker->dateTime($max = 'now', $timezone = date_default_timezone_get())
     ];
 });
+
+$factory->define(App\Asistente::class, function (Faker $faker) {
+
+    return [
+        'nombre' => $faker->firstname,
+        'apellido' => $faker->lastName,
+        'documento' => $faker->numberBetween(1000000, 99999999)
+    ];
+});
+
+$factory->define(App\Contacto::class, function (Faker $faker) {
+
+    return [
+        'email' => $faker->email,
+        'telefono' => $faker->tollFreePhoneNumber,
+    ];
+});

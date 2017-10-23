@@ -13,7 +13,7 @@ class CreateTableAsistente extends Migration
      */
     public function up()
     {
-        Schema::table('asistente', function (Blueprint $table) {
+        Schema::create('asistentes', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('documento');
             $table->string('nombre', 50);
@@ -29,8 +29,6 @@ class CreateTableAsistente extends Migration
      */
     public function down()
     {
-        Schema::table('asistente', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('asistentes');
     }
 }

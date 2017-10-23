@@ -11,4 +11,10 @@ class Sede extends Model
 		// hasMany(RelatedModel, foreignKeyOnRelatedModel = category_id, localKey = id)
 		return $this->hasMany(Event::class);
 	}
+
+	public function contacto()
+	{
+		// hasMany(RelatedModel, foreignKeyOnRelatedModel = category_id, localKey = id)
+		return $this->belongsTo(Contacto::class);
+	}
 }

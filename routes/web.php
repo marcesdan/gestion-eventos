@@ -26,11 +26,10 @@ Route::get('events/{event}', 'EventsController@show')->name('events.show');
 Route::post('events/{event}', 'EventsController@update')->name('events.update');
 Route::get('events/edit/{event}', 'EventsController@edit')->name('events.edit');
 Route::get('events/delete/{event}', 'EventsController@destroy')->name('events.delete');
-
 Route::get('asistentes', 'AsistentesController@index')->name('asistentes.index');
 Route::post('asistentes', 'AsistentesController@store')->name('asistentes.store');
 Route::get('asistentes/create', 'AsistentesController@create')->name('asistentes.create');
-Route::get('asistentes/{event}', 'AsistentesController@show')->name('asistentes.show');
-Route::post('asistentes/{event}', 'AsistentesController@update')->name('asistentes.update');
-Route::get('asistentes/edit/{event}', 'AsistentesController@edit')->name('asistentes.edit');
-Route::get('asistentes/delete/{event}', 'AsistentesController@destroy')->name('asistentes.delete');
+Route::get('asistentes/{asistente}', 'AsistentesController@show')->name('asistentes.show');
+Route::post('asistentes/{asistente}', 'AsistentesController@update')->name('asistentes.update');
+Route::get('asistentes/edit/{asistente}', 'AsistentesController@edit')->name('asistentes.edit');
+Route::get('asistentes/delete/{asistente}', 'AsistentesController@destroy')->name('asistentes.delete');

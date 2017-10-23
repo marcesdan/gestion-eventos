@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 
-class EventsController extends Controller
+class AsistentesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class EventsController extends Controller
     public function index()
     {
         // get all the asistentes
-        $asistentes = Asistente::orderBy('apellido')->paginate(20);
+        $asistentes = Asistente::orderBy('apellido')->orderBy('nombre')->paginate(20);
 
         // load the view and pass the asistentes
         return View::make('asistentes/index')
