@@ -5,12 +5,13 @@
   <p>
     <a href="{{ url('asistentes/create') }}" class="btn btn-primary btn-sm">Agregar un asistente</a>
   </p>
+  @include('partials/message')
   <ul class="list-group">
       @foreach ($asistentes as $asistente)
       <li class="list-group-item">
         <span class="badge badge-primary"> {{ $asistente->documento }} </span>
         | {{ $asistente->apellido }}, {{ $asistente->nombre }}
-        
+
         <div class="btn-group btn-group-sm" role="group" style="float:right">
         <a href="{{ route('asistentes.show', ['asistentes' => $asistente->id]) }}" class="btn btn-sm btn-primary">Detalles</a>
         <a href="{{ route('asistentes.edit', ['asistentes' => $asistente->id]) }}" class="btn btn-sm btn-primary">Editar</a>
@@ -19,8 +20,8 @@
 
       </li>
       @endforeach
-  </ul> 
+  </ul>
   <br>
-  {!! $asistentes->render("pagination::bootstrap-4") !!}  
+  {!! $asistentes->render("pagination::bootstrap-4") !!}
 </div>
 @endsection

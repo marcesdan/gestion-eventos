@@ -2,14 +2,16 @@
 @section('content')
   <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <h1>Eventos</h1>
-        <a href="{{ url('events') }}">Ver todos los eventos</a>
+        <h1>Detalle del asistente</h1>
+        <a href="{{ url('asistentes') }}">Ver todos los asistentes</a>
         <br>
         <span class="badge badge-info"> 
-          {{ \Carbon\Carbon::parse($event->fecha)->format('d/m/Y - h:m')}} ({{ $event->sede->nombre }})</span>
-        | {{ $event->nombre}}
+          {{ $asistente->documento }}
+        </span>
+        | {{ $asistente->apellido}}, {{ $asistente->nombre}}.
+        <br>
         <p>
-          {{ $event->descripcion}}
+          {{ $asistente->contacto->telefono}}, {{ $asistente->contacto->email }}
         </p>
       </div>
   </div>
