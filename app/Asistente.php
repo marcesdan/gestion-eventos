@@ -14,6 +14,17 @@ class Asistente extends Model
 	public function contacto() 
 	{
 		// belongsTo(RelatedModel, foreignKey = category_id, keyOnRelatedModel = id)
-		return $this->belongsTo(Contacto::class );
+		return $this->belongsTo(Contacto::class);
+	}
+
+	/**
+	 * Event belongs to many events.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+	public function eventos() 
+	{
+		// belongsTo(RelatedModel, foreignKey = category_id, keyOnRelatedModel = id)
+		return $this->belongsToMany(Event::class);
 	}
 }

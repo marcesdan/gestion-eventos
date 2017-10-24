@@ -6,15 +6,20 @@
 <form method="POST" action="{{ route('events.update', ['events' => $event->id]) }}" class="form">
   {!! csrf_field() !!}
   <div class="form-group row">
-    <label for="nombre">Nombre</label>
-    <input type="text" name="nombre" class="form-control" value="{{ $event->nombre }}">
+    <label for="nombre" class="col-lg-3 col-form-label form-control-label field-label-responsive lead">Nombre</label>
+    <div class="col-lg-7">
+      <input type="text" name="nombre" class="form-control" value="{{ $event->nombre }}">
+    </div>
   </div>
   <div class="form-group row">
-    <label for="descripcion">Descripcion</label>
+    <label for="descripcion" class="col-lg-3 col-form-label form-control-label field-label-responsive lead">Descripcion</label>
+    <div class="col-lg-7">
     <textarea name="descripcion" class="form-control">{{ $event->descripcion }}</textarea>
   </div>
+  </div>
   <div class="form-group row">
-    <label for="sede">Sede</label>
+    <label for="sede" class="col-lg-3 col-form-label form-control-label field-label-responsive lead">Sede</label>
+    <div class="col-lg-7">
     <select class="form-control" name="sede_id">
       @if($sedes->count() > 0)
       <option value="{{ $selectedSede->id }}" selected="selected">{{ $selectedSede->nombre }}</option>
@@ -26,14 +31,16 @@
       @endif
     </select>
   </div>
-  <div class="form-group row">
-    <label for="fecha">Fecha y hora</label>
-    <input name="fecha" class="form-control" type="datetime-local" value="{{ $event->fecha }}">
   </div>
   <div class="form-group row">
+    <label for="fecha" class="col-lg-3 col-form-label form-control-label field-label-responsive lead">Fecha y hora</label>
+    <div class="col-lg-7">
+    <input name="fecha" class="form-control" type="datetime-local" value="{{ $event->fecha }}">
+  </div>
+  </div>
+  <div class="form-group" style="text-align: center;">
+     <a href="{{ url('events') }}" class="btn btn-secondary">Cancelar</a>
     <button type="submit" class="btn btn-primary">Editar evento</button>
   </div>
 </form>
-</div>
-</div>
 @endsection

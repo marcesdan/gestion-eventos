@@ -4,6 +4,7 @@
 <hr>
 <div class="jumbotron">
   <div class="container">
+    @include('partials/message')
     <div style="text-align: center;">
       <a href="{{ url('events/create') }}" class="btn btn-primary btn-sm center">Agregar un evento</a>
     </div>
