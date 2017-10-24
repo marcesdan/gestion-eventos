@@ -2,7 +2,7 @@
 @section('content')
 <h1> Creación de asistentes </h1>
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-6 col-md-auto">
     @include('partials/errors')
     <form method="POST" action="{{ url('asistentes') }}" class="form">
       {!! csrf_field() !!}
