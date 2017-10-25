@@ -4,19 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sede extends Model
-{
-	protected $table = 'Sede';
+class Sede extends Model {
 
-    public function events()
-	{
-		// hasMany(RelatedModel, foreignKeyOnRelatedModel = category_id, localKey = id)
-		return $this->hasMany(Event::class);
-	}
+    protected $table = 'Sede';
 
-	public function contacto()
-	{
-		// hasMany(RelatedModel, foreignKeyOnRelatedModel = category_id, localKey = id)
-		return $this->belongsTo(Contacto::class);
-	}
+    public function events() {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = category_id, localKey = id)
+        return $this->hasMany(Event::class);
+    }
+
+    public function contacto() {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = category_id, localKey = id)
+        return $this->belongsTo(Contacto::class);
+    }
+
 }

@@ -4,26 +4,28 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Asistente extends Model {
+class Evento extends Model {
+
+    protected $table = 'Evento';
 
     /**
-     * Event belongs to Contacto.
+     * Event belongs to Sede.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function contacto() {
+    public function sede() {
         // belongsTo(RelatedModel, foreignKey = category_id, keyOnRelatedModel = id)
-        return $this->belongsTo(Contacto::class);
+        return $this->belongsTo(Sede::class);
     }
 
     /**
-     * Event belongs to many events.
+     * Event belongs to many asistentes.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function eventos() {
+    public function asistentes() {
         // belongsTo(RelatedModel, foreignKey = category_id, keyOnRelatedModel = id)
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Asistente::class);
     }
 
 }
