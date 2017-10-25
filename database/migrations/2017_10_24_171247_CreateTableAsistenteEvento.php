@@ -18,16 +18,18 @@ class CreateTableAsistenteEvento extends Migration
             $table->increments('id');
             $table->unsignedInteger('evento_id')->index();
             $table->unsignedInteger('asistente_id')->index();
+            $table->engine = 'InnoDB';
             $table->foreign('evento_id')
                     ->references('id')
-                    ->on('Evento')
+                    ->on('evento')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
             $table->foreign('asistente_id')
                     ->references('id')
-                    ->on('Asistente')
+                    ->on('asistente')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
+            //$table->unique(['evento_id', 'asistente_id']);
             $table->timestamps();
         });
     }

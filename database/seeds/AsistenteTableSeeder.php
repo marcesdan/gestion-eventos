@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use App\Asistente;
-use App\Contacto;
 
 class AsistenteTableSeeder extends Seeder
 {
@@ -15,13 +14,8 @@ class AsistenteTableSeeder extends Seeder
     public function run()
     {
         $asistentes = factory(Asistente::class)->times(100)->make();
-        $contactos = Contacto::all();
-
-        foreach ($asistentes as $asistente) {
-            $contacto = $contactos->random();
-            $asistente->contacto_id = $contacto->id;
+        foreach ($asistentes as $asistente){
             $asistente->save();
         }
     }
-
 }

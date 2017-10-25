@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Asistente extends Model
 {
-     protected $table = 'Asistente';
+     protected $table = 'asistente';
      
     /**
      * Event belongs to Contacto.
@@ -16,7 +16,7 @@ class Asistente extends Model
     public function contacto()
     {
         // belongsTo(RelatedModel, foreignKey = category_id, keyOnRelatedModel = id)
-        return $this->belongsTo(Contacto::class);
+        return $this->hasOne(Contacto::class);
     }
 
     /**

@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Asistente;
 use App\Contacto;
+use Illuminate\Database\Seeder;
 
 class ContactoTableSeeder extends Seeder
 {
@@ -13,11 +14,11 @@ class ContactoTableSeeder extends Seeder
      */
     public function run()
     {
-        $contactos = factory(Contacto::class)->times(100)->make();
-        foreach ($contactos as $contacto) {
+        $asistentes = Asistente::all();
+        foreach ($asistentes as $asistente) {
+            $contacto = factory(Contacto::class)->make();
             $contacto->timestamps = false;
-            $contacto->save();
+            $asistente->contacto()->save($contacto);
         }
     }
-
 }

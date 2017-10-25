@@ -73,9 +73,10 @@ class AsistenteController extends Controller
 
             DB::beginTransaction();
             try {
-                $contacto = $contacto->save();
-                $asistente->contacto()->associate($contacto);
-                $asistente = $asistente->save();
+                $contacto->save();
+                $asistente->contacto()
+                        ->associate($contacto)
+                        ->save();
             } catch (\Exception $e) {
                 DB::rollback();
                 Session::flash('message', 'Inesperadamente, la transaccion fallo');

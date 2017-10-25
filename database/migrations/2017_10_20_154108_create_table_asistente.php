@@ -20,6 +20,7 @@ class CreateTableAsistente extends Migration
             $table->string('nombre', 50);
             $table->string('apellido', 50);
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

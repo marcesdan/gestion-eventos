@@ -7,18 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Sede extends Model
 {
 
-    protected $table = 'Sede';
+    protected $table = 'sede';
 
     public function events()
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = category_id, localKey = id)
         return $this->hasMany(Evento::class);
     }
-
-    public function contacto()
-    {
-        // hasMany(RelatedModel, foreignKeyOnRelatedModel = category_id, localKey = id)
-        return $this->belongsTo(Contacto::class);
-    }
-
 }

@@ -20,6 +20,7 @@ class CreateEventsTable extends Migration
             $table->timestamp('fecha');
             $table->softDeletes();
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 
