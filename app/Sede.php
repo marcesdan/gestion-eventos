@@ -8,10 +8,12 @@ class Sede extends Model
 {
 
     protected $table = 'sede';
+    public $timestamps = false;
 
-    public function events()
+    public function eventos()
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = category_id, localKey = id)
         return $this->hasMany(Evento::class);
     }
+
 }

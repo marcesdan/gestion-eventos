@@ -17,11 +17,9 @@ class AsistenteEventoSeeder extends Seeder
         $asistentes = Asistente::all();
         $eventos = Evento::all();
 
-        for ($i = 0; $i < 500; $i++) {
-
+        for ($i = 0; $i < 200; $i++) {
             $asistente = $asistentes->random();
             $evento = $eventos->random();
-
             $asistente->eventos()->attach($evento->id);
             $evento->asistentes()->attach($asistente->id);
         }

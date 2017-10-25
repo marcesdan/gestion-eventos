@@ -18,7 +18,6 @@ class SedeTableSeeder extends Seeder
         foreach ($nombres as $nombre){
             $sede = new Sede;
             $sede->nombre = $nombre;
-            $sede->timestamps = false;
             $sede->save();
         }
     }

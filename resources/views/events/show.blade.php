@@ -9,10 +9,7 @@
     <div class="container">
       <h4 class="card-title"> {{ $event->nombre }} </h4>
       <p class="card-text lead"> {{ $event->descripcion }} </p>
-      <blockquote class="blockquote-footer">
-        <p class="mb-1">{{ $event->sede->contacto->telefono }}</p>
-        <p class="mb-1">{{ $event->sede->contacto->email }}</p>
-      </blockquote>
+      <br>
     </div>
   </div>
   <div class="form-group" style="text-align: center;">

@@ -4,7 +4,6 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 	<p>Oops! Han surgido algunos errores...</p>
-	<strong>{{ $message }}</strong>
 	@foreach ($errors->all() as $error)
 		<li>
 			<strong>{{ $error }}</strong>

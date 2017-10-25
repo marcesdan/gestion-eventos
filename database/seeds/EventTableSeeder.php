@@ -15,20 +15,14 @@ class EventTableSeeder extends Seeder
     public function run()
     {
         $sedes = Sede::all();
-        $events = factory(Evento::class)->times(100)->make();
+        $eventos = factory(Evento::class)->times(100)->make();
         //factory(Event::class )->times(100)->create();
 
-        foreach ($events as $event) {
+        foreach ($eventos as $evento) {
             //nos quedamos con una sede aleatoria
             $sede = $sedes->random();
-
-            //le pedimos a eloquent que nos devuelva la relacion hasMany
-            $event->sede_id = $sede->id;
-            $event->save();
-
-            /* equivalente a...
-              $sede = event()->save($event);
-             */
+            //guardamos la sede, lo asocciamos al avento y guardamos el evento
+            $evento->sede()->associate($sede->save())->save();
         }
     }
 

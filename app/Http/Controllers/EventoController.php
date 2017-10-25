@@ -123,7 +123,6 @@ class EventoController extends Controller
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
             'nombre' => 'required',
-            'descripcion' => 'required',
             'fecha' => 'required',
         );
 

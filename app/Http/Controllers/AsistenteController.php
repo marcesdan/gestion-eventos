@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Validator;
 
 class AsistenteController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -52,7 +51,8 @@ class AsistenteController extends Controller
         $rules = array(
             'nombre' => 'required',
             'apellido' => 'required',
-            'documento' => 'required',
+            'documento' => 'required|unique',
+            'email' => 'required'
         );
 
         $validator = Validator::make($request->all(), $rules);
@@ -73,10 +73,8 @@ class AsistenteController extends Controller
 
             DB::beginTransaction();
             try {
-                $contacto->save();
-                $asistente->contacto()
-                        ->associate($contacto)
-                        ->save();
+                $asistente->save();
+                $asistente->contacto()->save($contacto);
             } catch (\Exception $e) {
                 DB::rollback();
                 Session::flash('message', 'Inesperadamente, la transaccion fallo');
@@ -86,7 +84,7 @@ class AsistenteController extends Controller
 
             // redirect
             Session::flash('success', 'Successfully created asistente!');
-            return redirect('asistentes'); //->with('message', 'Successfully created asistente!');
+            return redirect('asistentes');
         }
     }
 
@@ -136,14 +134,16 @@ class AsistenteController extends Controller
             'nombre' => 'required',
             'apellido' => 'required',
             'documento' => 'required',
+            'email' => 'required',
         );
+
         $validator = Validator::make($request->all(), $rules);
 
         // process the login
         if ($validator->fails()) {
             return redirect("asistentes/edit/{id}")
                             ->withErrors($validator)
-                            ->withInput($request);
+                            ->withInput($request->all());
         } else {
             // store
             $asistente = Asistente::find($id);
@@ -185,6 +185,11 @@ class AsistenteController extends Controller
         // redirect
         Session::flash('message', 'Successfully deleted the asistente!');
         return redirect('asistentes');
+    }
+
+    private function validate(Request $request)
+    {
+        
     }
 
 }

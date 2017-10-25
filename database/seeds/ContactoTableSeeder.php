@@ -17,7 +17,6 @@ class ContactoTableSeeder extends Seeder
         $asistentes = Asistente::all();
         foreach ($asistentes as $asistente) {
             $contacto = factory(Contacto::class)->make();
-            $contacto->timestamps = false;
             $asistente->contacto()->save($contacto);
         }
     }
