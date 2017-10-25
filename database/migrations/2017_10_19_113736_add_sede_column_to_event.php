@@ -14,7 +14,7 @@ class AddSedeColumnToEvent extends Migration
      */
     public function up()
     {
-        Schema::table('Evento', function (Blueprint $table) {
+        Schema::table('evento', function (Blueprint $table) {
             $table->unsignedInteger('sede_id')
                     ->index()
                     ->after('descripcion');
@@ -31,7 +31,7 @@ class AddSedeColumnToEvent extends Migration
      */
     public function down()
     {
-        Schema::table('Evento', function (Blueprint $table) {
+        Schema::table('evento', function (Blueprint $table) {
             $table->dropColumn('sede_id');
         });
     }

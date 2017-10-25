@@ -27,7 +27,7 @@ class Asistente extends Model
     public function eventos()
     {
         // belongsTo(RelatedModel, foreignKey = category_id, keyOnRelatedModel = id)
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Evento::class);
     }
 
 }

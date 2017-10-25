@@ -14,7 +14,7 @@ class AddContactoAsistente extends Migration
      */
     public function up()
     {
-        Schema::table('Asistente', function (Blueprint $table) {
+        Schema::table('asistente', function (Blueprint $table) {
             $table->unsignedInteger('contacto_id')
                     ->after('apellido')->index();
             $table->foreign('contacto_id')
@@ -30,7 +30,7 @@ class AddContactoAsistente extends Migration
      */
     public function down()
     {
-        Schema::table('Asistente', function (Blueprint $table) {
+        Schema::table('asistente', function (Blueprint $table) {
             $table->dropColumn('contacto_id');
         });
     }

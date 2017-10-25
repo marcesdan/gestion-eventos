@@ -14,7 +14,7 @@ class CreateTableAsistenteEvento extends Migration
      */
     public function up()
     {
-        Schema::create('AsistenteEvento', function (Blueprint $table) {
+        Schema::create('asistente_evento', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('evento_id')->index();
             $table->unsignedInteger('asistente_id')->index();
@@ -39,7 +39,7 @@ class CreateTableAsistenteEvento extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('AsistenteEvento');
+        Schema::dropIfExists('asistente_evento');
     }
 
 }
