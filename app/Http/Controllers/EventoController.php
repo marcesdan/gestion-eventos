@@ -8,14 +8,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-class EventoController extends Controller {
+class EventoController extends Controller
+{
 
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index() {
+    public function index()
+    {
         // input all the events
         $events = Evento::orderBy('fecha', 'desc')
                 ->paginate(20);
@@ -30,7 +32,8 @@ class EventoController extends Controller {
      *
      * @return Response
      */
-    public function create() {
+    public function create()
+    {
 
         // load the create form (app/views/events/create.blade.php)
         return view('events/create')
@@ -42,7 +45,8 @@ class EventoController extends Controller {
      *
      * @return Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
@@ -78,7 +82,8 @@ class EventoController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         // input the event
         $event = Evento::findOrFail($id);
 
@@ -93,7 +98,8 @@ class EventoController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
         // input the event
         $event = Evento::findOrFail($id);
         $sedes = Sede::all();
@@ -111,7 +117,8 @@ class EventoController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
@@ -149,7 +156,8 @@ class EventoController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         // delete
         $event = Evento::findOrFail($id);
         $event->delete();

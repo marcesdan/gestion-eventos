@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTableAsistente extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -31,4 +32,5 @@ class CreateTableAsistente extends Migration
     {
         Schema::dropIfExists('asistentes');
     }
+
 }

@@ -4,14 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Asistente extends Model {
+class Asistente extends Model
+{
 
     /**
      * Event belongs to Contacto.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function contacto() {
+    public function contacto()
+    {
         // belongsTo(RelatedModel, foreignKey = category_id, keyOnRelatedModel = id)
         return $this->belongsTo(Contacto::class);
     }
@@ -21,7 +23,8 @@ class Asistente extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function eventos() {
+    public function eventos()
+    {
         // belongsTo(RelatedModel, foreignKey = category_id, keyOnRelatedModel = id)
         return $this->belongsToMany(Event::class);
     }

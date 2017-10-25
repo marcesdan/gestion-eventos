@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Evento extends Model {
+class Evento extends Model
+{
 
     protected $table = 'Evento';
 
@@ -13,7 +14,8 @@ class Evento extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function sede() {
+    public function sede()
+    {
         // belongsTo(RelatedModel, foreignKey = category_id, keyOnRelatedModel = id)
         return $this->belongsTo(Sede::class);
     }
@@ -23,7 +25,8 @@ class Evento extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function asistentes() {
+    public function asistentes()
+    {
         // belongsTo(RelatedModel, foreignKey = category_id, keyOnRelatedModel = id)
         return $this->belongsToMany(Asistente::class);
     }

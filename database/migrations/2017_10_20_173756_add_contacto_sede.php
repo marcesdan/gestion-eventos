@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddContactoSede extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -14,7 +15,7 @@ class AddContactoSede extends Migration
     public function up()
     {
         Schema::table('sedes', function (Blueprint $table) {
-            $table -> unsignedInteger('contacto_id') -> index() -> after('nombre');
+            $table->unsignedInteger('contacto_id')->index()->after('nombre');
         });
     }
 
@@ -26,7 +27,8 @@ class AddContactoSede extends Migration
     public function down()
     {
         Schema::table('sedes', function (Blueprint $table) {
-            $table -> dropColumn('contacto_id');
+            $table->dropColumn('contacto_id');
         });
     }
+
 }

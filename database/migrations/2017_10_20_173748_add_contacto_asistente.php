@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddContactoAsistente extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -14,7 +15,7 @@ class AddContactoAsistente extends Migration
     public function up()
     {
         Schema::table('asistentes', function (Blueprint $table) {
-            $table -> unsignedInteger('contacto_id') -> index() -> after('documento');
+            $table->unsignedInteger('contacto_id')->index()->after('documento');
         });
     }
 
@@ -25,8 +26,9 @@ class AddContactoAsistente extends Migration
      */
     public function down()
     {
-         Schema::table('asistentes', function (Blueprint $table) {
-            $table -> dropColumn('contacto_id');
+        Schema::table('asistentes', function (Blueprint $table) {
+            $table->dropColumn('contacto_id');
         });
     }
+
 }

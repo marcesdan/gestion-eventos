@@ -9,14 +9,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-class AsistenteController extends Controller {
+class AsistenteController extends Controller
+{
 
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index() {
+    public function index()
+    {
         // get all the asistentes
         $asistentes = Asistente::
                 orderBy('apellido')
@@ -33,7 +35,8 @@ class AsistenteController extends Controller {
      *
      * @return Response
      */
-    public function create() {
+    public function create()
+    {
         // load the create form (app/views/asistentes/create.blade.php)
         return view('asistentes/create');
     }
@@ -43,7 +46,8 @@ class AsistenteController extends Controller {
      *
      * @return Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         // validate
         $rules = array(
             'nombre' => 'required',
@@ -91,7 +95,8 @@ class AsistenteController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         // get the asistente
         $asistente = Asistente::findOrFail($id);
 
@@ -106,7 +111,8 @@ class AsistenteController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
         // get the asistente
         $asistente = Asistente::findOrFail($id);
 
@@ -121,7 +127,8 @@ class AsistenteController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
@@ -168,7 +175,8 @@ class AsistenteController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         // delete
         $asistente = Asistente::findOrFail($id);
         $asistente->delete();

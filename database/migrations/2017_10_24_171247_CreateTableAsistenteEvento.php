@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTableAsistenteEvento extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -28,6 +29,7 @@ class CreateTableAsistenteEvento extends Migration
      */
     public function down()
     {
-         Schema::dropIfExists('Asistente_evento');
+        Schema::dropIfExists('Asistente_evento');
     }
+
 }

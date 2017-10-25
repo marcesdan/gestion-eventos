@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateSedeTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,9 +14,9 @@ class CreateSedeTable extends Migration
      */
     public function up()
     {
-        Schema::create('sedes', function (Blueprint $table) {
+        Schema::create('Sede', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre', 100);
+            $table->string('nombre', 80);
             $table->timestamps();
         });
     }
@@ -27,6 +28,7 @@ class CreateSedeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sedes');
+        Schema::dropIfExists('Sedes');
     }
+
 }

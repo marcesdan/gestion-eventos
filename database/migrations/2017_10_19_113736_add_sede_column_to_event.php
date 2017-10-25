@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddSedeColumnToEvent extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -14,7 +15,7 @@ class AddSedeColumnToEvent extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table -> unsignedInteger('sede_id') -> index() -> after('descripcion');
+            $table->unsignedInteger('sede_id')->index()->after('descripcion');
         });
     }
 
@@ -26,7 +27,8 @@ class AddSedeColumnToEvent extends Migration
     public function down()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table -> dropColumn('sede_id');
+            $table->dropColumn('sede_id');
         });
     }
+
 }

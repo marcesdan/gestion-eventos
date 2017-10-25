@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Event::class, function (Faker $faker) {
+$factory->define(App\Evento::class, function (Faker $faker) {
 
     return [
         'nombre' => $faker->catchPhrase,

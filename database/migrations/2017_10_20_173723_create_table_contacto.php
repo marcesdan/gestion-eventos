@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTableContacto extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -28,6 +29,7 @@ class CreateTableContacto extends Migration
      */
     public function down()
     {
-         Schema::dropIfExists('contactos');
+        Schema::dropIfExists('contactos');
     }
+
 }
