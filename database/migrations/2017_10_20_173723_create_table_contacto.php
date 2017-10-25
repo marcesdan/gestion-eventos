@@ -14,11 +14,10 @@ class CreateTableContacto extends Migration
      */
     public function up()
     {
-        Schema::create('contactos', function (Blueprint $table) {
+        Schema::create('Contacto', function (Blueprint $table) {
             $table->increments('id');
-            $table->mediumText('telefono');
-            $table->mediumText('email');
-            $table->timestamps();
+            $table->string('telefono', 30);
+            $table->string('email', 50);
         });
     }
 
@@ -29,7 +28,7 @@ class CreateTableContacto extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contactos');
+        Schema::dropIfExists('Contacto');
     }
 
 }

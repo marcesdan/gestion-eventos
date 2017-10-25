@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -14,9 +14,10 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         $this->call(ContactoTableSeeder::class);
-		$this->call(SedeTableSeeder::class );
-        $this->call(EventTableSeeder::class );
-		$this->call(AsistenteTableSeeder::class );
+        $this->call(SedeTableSeeder::class);
+        $this->call(EventTableSeeder::class);
+        $this->call(AsistenteTableSeeder::class);
         $this->call(AsistenteEventoSeeder::class);
     }
+
 }

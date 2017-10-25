@@ -5,6 +5,7 @@ use App\Contacto;
 
 class ContactoTableSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -14,7 +15,9 @@ class ContactoTableSeeder extends Seeder
     {
         $contactos = factory(Contacto::class)->times(100)->make();
         foreach ($contactos as $contacto) {
-			$contacto->save();
-		}
+            $contacto->timestamps = false;
+            $contacto->save();
+        }
     }
+
 }

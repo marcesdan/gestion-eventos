@@ -14,8 +14,11 @@ class AddContactoSede extends Migration
      */
     public function up()
     {
-        Schema::table('sedes', function (Blueprint $table) {
-            $table->unsignedInteger('contacto_id')->index()->after('nombre');
+        Schema::table('Sede', function (Blueprint $table) {
+            $table->unsignedInteger('contacto_id');
+            $table->foreign('contacto_id')
+                    ->references('id')
+                    ->on('Contacto');
         });
     }
 
@@ -26,7 +29,7 @@ class AddContactoSede extends Migration
      */
     public function down()
     {
-        Schema::table('sedes', function (Blueprint $table) {
+        Schema::table('Sede', function (Blueprint $table) {
             $table->dropColumn('contacto_id');
         });
     }

@@ -15,9 +15,10 @@ class CreateEventsTable extends Migration
     {
         Schema::create('Evento', function (Blueprint $table) {
             $table->increments('id');
-            $table->mediumText('nombre', '100');
+            $table->string('nombre', '100');
             $table->mediumText('descripcion');
             $table->timestamp('fecha');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('Evento');
     }
 }

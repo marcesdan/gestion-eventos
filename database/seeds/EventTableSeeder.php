@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Event;
+use App\Evento;
 use App\Sede;
-use App\Contacto;
 
 class EventTableSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -15,20 +15,21 @@ class EventTableSeeder extends Seeder
     public function run()
     {
         $sedes = Sede::all();
-		$events = factory(Event::class)->times(100)->make();
-		//factory(Event::class )->times(100)->create();
+        $events = factory(Evento::class)->times(100)->make();
+        //factory(Event::class )->times(100)->create();
 
-		foreach ($events as $event) {
-			//nos quedamos con una sede aleatoria
-			$sede = $sedes->random();
+        foreach ($events as $event) {
+            //nos quedamos con una sede aleatoria
+            $sede = $sedes->random();
 
-			//le pedimos a eloquent que nos devuelva la relacion hasMany
-			$event->sede_id = $sede->id;
-			$event->save();
+            //le pedimos a eloquent que nos devuelva la relacion hasMany
+            $event->sede_id = $sede->id;
+            $event->save();
 
-			/*equivalente a...
-				$sede = event()->save($event);
-			*/
-		}
+            /* equivalente a...
+              $sede = event()->save($event);
+             */
+        }
     }
+
 }

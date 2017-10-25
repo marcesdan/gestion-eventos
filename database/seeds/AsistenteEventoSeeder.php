@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Event;
+use App\Evento;
 use App\Asistente;
 
 class AsistenteEventoSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -14,15 +15,16 @@ class AsistenteEventoSeeder extends Seeder
     public function run()
     {
         $asistentes = Asistente::all();
-        $eventos = Event::all();
+        $eventos = Evento::all();
 
-        for ($i = 0 ; $i < 500 ; $i++){
-        	
-        	$asistente = $asistentes->random();
-        	$evento = $eventos->random();
+        for ($i = 0; $i < 500; $i++) {
 
-        	$asistente->eventos()->attach($evento->id);
-        	$evento->asistentes()->attach($asistente->id);
+            $asistente = $asistentes->random();
+            $evento = $eventos->random();
+
+            $asistente->eventos()->attach($evento->id);
+            $evento->asistentes()->attach($asistente->id);
         }
     }
+
 }

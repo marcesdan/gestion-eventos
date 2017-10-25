@@ -17,7 +17,6 @@ class CreateSedeTable extends Migration
         Schema::create('Sede', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre', 80);
-            $table->timestamps();
         });
     }
 
@@ -28,7 +27,7 @@ class CreateSedeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Sedes');
+        Schema::dropIfExists('Sede');
     }
 
 }
