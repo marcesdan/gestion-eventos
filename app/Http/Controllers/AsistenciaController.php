@@ -35,10 +35,11 @@ class AsistenciaController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create($evento)
     {
         // load the create form (app/views/asistencias/create.blade.php)
-        return view('asistencias/create');
+        return view('asistencias/create')
+                        ->with('event', $evento);
     }
 
     /**
@@ -46,13 +47,11 @@ class AsistenciaController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $evento)
     {
         // validate
         $rules = array(
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'documento' => 'required',
+            'documento' => 'required|numeric|digits_between:7,8'
         );
 
         $validator = Validator::make($request->all(), $rules);
@@ -60,32 +59,17 @@ class AsistenciaController extends Controller
         // process the store
         if ($validator->fails()) {
             return redirect('asistencias/create')
-                            ->withErrors($validator);
+                            ->withErrors($validator)
+                            ->with('event', $evento);
         } else {
             // store
-            $asistencia = new Asistencia;
-            $contacto = new Contacto;
-            $asistencia->nombre = $request->input('nombre');
-            $asistencia->apellido = $request->input('apellido');
-            $asistencia->documento = $request->input('documento');
-            $contacto->email = $request->input('email');
-            $contacto->telefono = $request->input('telefono');
-
-            DB::beginTransaction();
-            try {
-                $contacto = $contacto->save();
-                $asistencia->contacto()->associate($contacto);
-                $asistencia = $asistencia->save();
-            } catch (\Exception $e) {
-                DB::rollback();
-                Session::flash('message', 'Inesperadamente, la transaccion fallo');
-                throw $e;
-            }
-            DB::commit();
-
+            
+            $asistente = Asistente::find($request->input('documento'));
+            $evento->asistentes()->attach($asistente->id);
+            
             // redirect
             Session::flash('success', 'Successfully created asistencia!');
-            return redirect('asistencias'); //->with('message', 'Successfully created asistencia!');
+            return redirect('asistencias');
         }
     }
 

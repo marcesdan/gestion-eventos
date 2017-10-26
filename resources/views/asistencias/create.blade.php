@@ -4,7 +4,7 @@
 <hr>
 @include('partials/errors')
 <br>
-<form method="POST" action="{{ url('asistentes') }}" class="form">
+<form method="POST" action="{{route('asistencias.store', ['asistencias' => $event])}}" class="form">
   {!! csrf_field() !!}
   <div class="form-group row">
     <label for="documento" class="col-lg-3 col-form-label form-control-label field-label-responsive lead">Documento</label>
@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="form-group" style="text-align: center;">
-    <a href="{{ url('asistentes') }}" class="btn btn-secondary">Cancelar</a>
+    <a href="{{ url('events') }}" class="btn btn-secondary">Cancelar</a>
     <button type="submit" class="btn btn-primary">Crear asistencia</button>
   </div>
 </form>
