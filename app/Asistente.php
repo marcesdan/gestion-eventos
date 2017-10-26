@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Asistente extends Model
 {
-     protected $table = 'asistente';
-     
+
+    protected $table = 'asistente';
+
     /**
      * Event belongs to Contacto.
      *

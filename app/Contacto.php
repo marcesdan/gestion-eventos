@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contacto extends Model
 {
-     protected $table = 'contacto';
-     public $timestamps = false;
 
-     
+    protected $table = 'contacto';
+    public $timestamps = false;
+
 }

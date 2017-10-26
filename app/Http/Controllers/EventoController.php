@@ -51,8 +51,8 @@ class EventoController extends Controller
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
             'nombre' => 'required',
-            'descripcion' => 'required',
-            'fecha' => 'required',
+            'sede_id' => 'required',
+            'fecha' => 'required'
         );
 
         $validator = Validator::make($request->all(), $rules);
@@ -60,7 +60,8 @@ class EventoController extends Controller
         // process the login
         if ($validator->fails()) {
             return redirect('events/create')
-                            ->withErrors($validator);
+                            ->withErrors($validator)
+                            ->withInput($request->all());
         } else {
             // store
             $event = new Evento;
@@ -71,7 +72,7 @@ class EventoController extends Controller
             $event->save();
 
             // redirect
-            Session::flash('message', 'Successfully created event!');
+            Session::flash('success', 'El evento se ha creado con éxito!');
             return redirect('events');
         }
     }
@@ -124,6 +125,7 @@ class EventoController extends Controller
         $rules = array(
             'nombre' => 'required',
             'fecha' => 'required',
+            'sede_id' => 'required'
         );
 
         $validator = Validator::make($request->all(), $rules);
@@ -144,7 +146,7 @@ class EventoController extends Controller
             $event->save();
 
             // redirect
-            Session::flash('message', 'Successfully updated event!');
+            Session::flash('success', 'Evento editado con éxito!');
             return redirect('events');
         }
     }
@@ -162,7 +164,7 @@ class EventoController extends Controller
         $event->delete();
 
         // redirect
-        Session::flash('message', 'Successfully deleted the event!');
+        Session::flash('success', 'Evento eliminado con éxito!');
         return redirect('events');
     }
 

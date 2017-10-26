@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AsistenteController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -51,8 +52,8 @@ class AsistenteController extends Controller
         $rules = array(
             'nombre' => 'required',
             'apellido' => 'required',
-            'documento' => 'required|unique',
-            'email' => 'required'
+            'documento' => 'required|numeric|digits_between:7,8',
+            'email' => 'required|email'
         );
 
         $validator = Validator::make($request->all(), $rules);
@@ -60,7 +61,8 @@ class AsistenteController extends Controller
         // process the store
         if ($validator->fails()) {
             return redirect('asistentes/create')
-                            ->withErrors($validator);
+                            ->withErrors($validator)
+                            ->withInput($request->all());
         } else {
             // store
             $asistente = new Asistente;
@@ -77,13 +79,13 @@ class AsistenteController extends Controller
                 $asistente->contacto()->save($contacto);
             } catch (\Exception $e) {
                 DB::rollback();
-                Session::flash('message', 'Inesperadamente, la transaccion fallo');
+                Session::flash('error', 'Inesperadamente, la transaccion fallo');
                 throw $e;
             }
             DB::commit();
 
             // redirect
-            Session::flash('success', 'Successfully created asistente!');
+            Session::flash('success', 'Asistente creado con éxito!');
             return redirect('asistentes');
         }
     }
@@ -133,7 +135,7 @@ class AsistenteController extends Controller
         $rules = array(
             'nombre' => 'required',
             'apellido' => 'required',
-            'documento' => 'required',
+            'documento' => 'required|numeric|digits_between:7,8',
             'email' => 'required',
         );
 
@@ -141,7 +143,7 @@ class AsistenteController extends Controller
 
         // process the login
         if ($validator->fails()) {
-            return redirect("asistentes/edit/{id}")
+            return redirect("asistentes/edit/$id")
                             ->withErrors($validator)
                             ->withInput($request->all());
         } else {
@@ -159,13 +161,13 @@ class AsistenteController extends Controller
                 $asistente->save();
             } catch (\Exception $e) {
                 DB::rollback();
-                Session::flash('message', 'Inesperadamente, la transaccion fallo');
+                Session::flash('error', 'Inesperadamente, la transaccion fallo');
                 throw $e;
             }
             DB::commit();
 
             // redirect
-            Session::flash('message', 'Successfully updated asistente!');
+            Session::flash('success', 'Asistente editado con éxito!');
             return redirect('asistentes');
         }
     }
@@ -183,13 +185,8 @@ class AsistenteController extends Controller
         $asistente->delete();
 
         // redirect
-        Session::flash('message', 'Successfully deleted the asistente!');
+        Session::flash('success', 'Asistente eliminado con éxito!');
         return redirect('asistentes');
-    }
-
-    private function validate(Request $request)
-    {
-        
     }
 
 }
