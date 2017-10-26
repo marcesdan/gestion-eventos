@@ -4,7 +4,7 @@
 <hr>
 @include('partials/errors')
 <br>
-<form method="POST" action="{{route('asistencias.store', ['asistencias' => $event])}}" class="form">
+<form method="POST" action="{{route('asistencias.store', ['event' => $evento])}}" class="form">
   {!! csrf_field() !!}
   <div class="form-group row">
     <label for="documento" class="col-lg-3 col-form-label form-control-label field-label-responsive lead">Documento</label>

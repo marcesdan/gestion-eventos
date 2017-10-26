@@ -16,8 +16,8 @@ class CreateTableAsistenteEvento extends Migration
     {
         Schema::create('asistente_evento', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('evento_id')->index();
-            $table->unsignedInteger('asistente_id')->index();
+            $table->unsignedInteger('evento_id');
+            $table->unsignedInteger('asistente_id');
             $table->engine = 'InnoDB';
             $table->foreign('evento_id')
                     ->references('id')
@@ -29,8 +29,7 @@ class CreateTableAsistenteEvento extends Migration
                     ->on('asistente')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
-            //$table->unique(['evento_id', 'asistente_id']);
-            $table->timestamps();
+            $table->unique(['evento_id', 'asistente_id']);
         });
     }
 

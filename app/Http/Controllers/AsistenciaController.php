@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Asistencia;
-use App\Contacto;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use App\Asistente;
+use App\Evento;
 
 class AsistenciaController extends Controller
 {
@@ -20,14 +19,29 @@ class AsistenciaController extends Controller
     public function index()
     {
         // get all the asistencias
-        $asistencias = Asistencia::
-                orderBy('apellido')
-                ->orderBy('nombre')
-                ->paginate(20);
-
+        $asistencias = DB::table('asistente')
+                ->join('asistente_evento','asistente.id','=','asistente_id')
+                ->join('evento','evento_id','=','evento.id')
+                ->join('sede','sede_id','=','sede.id')
+                ->orderBy('evento.fecha', 'desc')
+                ->select('asistente.id as', 'asistente.nombre','asistente.apellido',
+                        'evento.id', 'evento.nombre', 'evento.fecha', 'sede.nombre')
+                ->get()->paginate(20);
+                
         // load the view and pass the asistencias
         return view('asistencias/index')
                         ->with('asistencias', $asistencias);
+    }
+    
+    public function indexEvento($evento_id)
+    {
+        $evento = Evento::find($evento_id);
+        // get all the asistencias     
+        $asistencias = $evento->asistentes()->paginate(20);
+        // load the view and pass the asistencias
+        return view('asistencias/index')
+                        ->with('asistencias', $asistencias)
+                        ->with('evento', $evento);
     }
 
     /**
@@ -39,7 +53,7 @@ class AsistenciaController extends Controller
     {
         // load the create form (app/views/asistencias/create.blade.php)
         return view('asistencias/create')
-                        ->with('event', $evento);
+                        ->with('evento', $evento);
     }
 
     /**
@@ -47,7 +61,7 @@ class AsistenciaController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request, $evento)
+    public function store(Request $request, $evento_id)
     {
         // validate
         $rules = array(
@@ -60,96 +74,14 @@ class AsistenciaController extends Controller
         if ($validator->fails()) {
             return redirect('asistencias/create')
                             ->withErrors($validator)
-                            ->with('event', $evento);
+                            ->with('event', $evento_id);
         } else {
             // store
-            
-            $asistente = Asistente::find($request->input('documento'));
-            $evento->asistentes()->attach($asistente->id);
-            
+            $asistente = Asistente::where('documento', '=', $request->input('documento'))->first();
+            $asistente->eventos()->attach($evento_id);
             // redirect
             Session::flash('success', 'Successfully created asistencia!');
-            return redirect('asistencias');
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        // get the asistencia
-        $asistencia = Asistencia::findOrFail($id);
-
-        // show the view and pass the asistencia to it
-        return view('asistencias.show')
-                        ->with('asistencia', $asistencia);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        // get the asistencia
-        $asistencia = Asistencia::findOrFail($id);
-
-        // show the edit form and pass the asistencia
-        return view('asistencias.edit')
-                        ->with('asistencia', $asistencia);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        // validate
-        // read more on validation at http://laravel.com/docs/validation
-        $rules = array(
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'documento' => 'required',
-        );
-        $validator = Validator::make($request->all(), $rules);
-
-        // process the login
-        if ($validator->fails()) {
-            return redirect("asistencias/edit/{id}")
-                            ->withErrors($validator)
-                            ->withInput($request);
-        } else {
-            // store
-            $asistencia = Asistencia::find($id);
-            $asistencia->nombre = $request->input('nombre');
-            $asistencia->apellido = $request->input('apellido');
-            $asistencia->documento = $request->input('documento');
-            $asistencia->contacto->email = $request->input('email');
-            $asistencia->contacto->telefono = $request->input('telefono');
-
-            DB::beginTransaction();
-            try {
-                $asistencia->contacto->save();
-                $asistencia->save();
-            } catch (\Exception $e) {
-                DB::rollback();
-                Session::flash('message', 'Inesperadamente, la transaccion fallo');
-                throw $e;
-            }
-            DB::commit();
-
-            // redirect
-            Session::flash('message', 'Successfully updated asistencia!');
-            return redirect('asistencias');
+            return redirect('events');
         }
     }
 
@@ -159,15 +91,14 @@ class AsistenciaController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($asistente_id, $evento_id)
     {
-        // delete
-        $asistencia = Asistencia::findOrFail($id);
-        $asistencia->delete();
-
+        $asistente = Asistente::find($asistente_id);
+        $asistente->eventos()->detach($evento_id);
+        // DB::table('asistente_evento')->where("$asistente_id", '=', "$evento_id")->delete();
         // redirect
         Session::flash('message', 'Successfully deleted the asistencia!');
-        return redirect('asistencias');
+        return redirect("asistencias/$evento_id");
     }
 
 }

@@ -31,13 +31,9 @@ Route::post('asistentes/{asistente}', 'AsistenteController@update')->name('asist
 Route::get('asistentes/edit/{asistente}', 'AsistenteController@edit')->name('asistentes.edit');
 Route::post('asistentes/delete/{asistente}', 'AsistenteController@destroy')->name('asistentes.delete');
 
-Route::get('asistencias{event}', 'AsistenciaController@indexPorEvento')->name('asistencias.indexPorEvento');
-Route::get('asistencias{asistente}', 'AsistenciaController@indexPorAsistente')->name('asistencias.indexPorAsistente');
+Route::get('asistencias/{event}', 'AsistenciaController@indexEvento')->name('asistencias.indexEvento');
+//Route::get('asistencias/{asistente}', 'AsistenciaController@indexPorAsistente')->name('asistencias.indexPorAsistente');
 Route::post('asistencias/{event}', 'AsistenciaController@store')->name('asistencias.store');
 Route::get('asistencias/create/{event}', 'AsistenciaController@create')->name('asistencias.create');
-
-Route::get('asistencias/{asistente}', 'AsistenciaController@show')->name('asistencias.show');
-Route::post('asistencias/{asistente}', 'AsistenciaController@update')->name('asistencias.update');
-Route::get('asistencias/edit/{asistente}', 'AsistenciaController@edit')->name('asistencias.edit');
-Route::get('asistencias/delete/{asistente}', 'AsistenciaController@destroy')->name('asistencias.delete');
+Route::post('asistencias/delete/{asistente}+{evento}', 'AsistenciaController@destroy')->name('asistencias.delete');
 

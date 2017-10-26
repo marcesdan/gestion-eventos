@@ -3,44 +3,44 @@
 <h1 class="display-4 text-center">Lista de asistencias</h1>
 <hr>
 <div class="jumbotron">
-  <div class="container">
-    @include('partials/message')
-    <div style="text-align: center;">
-      <a href="{{ url('asistencias/create') }}" class="btn btn-primary btn-sm center">Agregar un asistencia</a>
-      <div class="row">
-        <div class="col-lg-6 offset-lg-3">
-          <div class="input-group">
-            <span class="input-group-btn">
-              <button class="btn btn-secondary" type="button">Por documento</button>
-            </span>
-            <input type="text" class="form-control" placeholder="Product name" aria-label="Product name">
-            <span class="input-group-btn">
-              <button class="btn btn-secondary" type="button">Por evento</button>
-            </span>
-          </div>
+    <div class="container">
+        @include('partials/message')
+        <div style="text-align: center;">
+            <a href="{{ route('asistencias.create', ['asistencias' => $evento->id]) }}" class="btn btn-primary btn-sm center">Agregar una asistencia</a>
         </div>
-      </div>
-    </div>
-    <br>
-    <ul class="list-group">
-      @foreach ($asistencias as $asistencia)
-      <li class="list-inline lead">
-        <span class="badge badge-primary">
-          {{ \Carbon\Carbon::parse($asistencia->event->fecha)->format('d/m/Y - h:m')}}
-        </span>
-        <a href="{{ route('asistencias.show', ['asistencias' => $asistencia->id]) }}" class="btn btn-sm btn-default">
-          <span class="lead">
-            <b>
-              {{ $asistencia->asistente->apellido }}, {{ $asistencia->asistente->nombre }}. {{ $asistencia->evento->nombre }}
-            </b>
-          </span>
-        </a>
-        <hr class="my-0">
-      </li>
-      @endforeach
-    </ul>
-  </div>
-  <br>
-  {!! $asistencias->render("pagination::bootstrap-4") !!}
-</div>
-@endsection
+        <br>
+        <blockquote class="blockquote">
+            <p class="mb-0"> {{ $evento->nombre }}</p>
+            <footer class="blockquote-footer">
+                {{ \Carbon\Carbon::parse($evento->fecha)->format('d/m - h:m')}} 
+                ({{ $evento->sede->nombre }})
+            </footer>
+        </blockquote>
+        <ul class="list-group">
+            @foreach ($asistencias as $asistencia)
+            <li class="list-inline lead">
+                <div class="form-group">
+                    <form name="myform"
+                          action="{{ route('asistencias.delete',
+                              ['asistencia' => $asistencia->id , 
+                                  'evento' => $evento->id]) }}" method="post"> 
+                        {!! csrf_field() !!}
+                        <span class="badge badge-primary">
+                            {{ $asistencia->documento }}
+                        </span>
+                        <span class="lead">
+                            <b>{{ $asistencia->apellido }}, {{ $asistencia->nombre}} </b>
+                        </span>
+                        <span style="float: right;">
+                            <button class="btn btn-danger btn-sm">Eliminar</button>
+                        </span>
+                    </form>
+                    <hr>
+                    </li>
+                    @endforeach
+                    </ul>
+                </div>
+                <br>
+                {!! $asistencias->render("pagination::bootstrap-4") !!}
+                </div>
+                @endsection

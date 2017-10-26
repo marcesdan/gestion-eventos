@@ -20,7 +20,7 @@ class AsistenteEventoSeeder extends Seeder
         for ($i = 0; $i < 200; $i++) {
             $asistente = $asistentes->random();
             $evento = $eventos->random();
-            $asistente->eventos()->attach($evento->id);
+            $asistente->eventos()->detach($evento->id);
             $evento->asistentes()->attach($asistente->id);
         }
     }

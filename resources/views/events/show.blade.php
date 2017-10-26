@@ -12,11 +12,12 @@
             <br>
         </div>
     </div>
-    <form name="myform" action="{{ route('events.delete', ['events' => $event->id]) }}" method="post">
+    <form name="myform" action="{{ route('events.delete', ['evento' => $event->id]) }}" method="post">
         {!! csrf_field() !!}
         <div class="form-group" style="text-align: center;"> 
             <a href="{{ url('events') }}" class="btn btn-secondary">Volver</a>
             <a href="{{ route('asistencias.create', ['asistencias' => $event->id]) }}" class="btn btn-success">Agregar asistente</a>
+            <a href="{{ route('asistencias.indexEvento', ['asistencias' => $event->id]) }}" class="btn btn-success">Ver asistentes</a>
             <a href="{{ route('events.edit', ['events' => $event->id]) }}" class="btn btn-primary">Editar</a>
             <button class="btn btn-danger">Eliminar</button>
         </div>
