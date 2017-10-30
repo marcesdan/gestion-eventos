@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use App\Sede;
-use App\Contacto;
 
 class SedeTableSeeder extends Seeder
 {
@@ -14,7 +13,7 @@ class SedeTableSeeder extends Seeder
      */
     public function run()
     {
-        $nombres = ['Darwin', 'RRHH', 'Yrigoyen', 'Onas', 'Malvinas'];
+        $nombres = ['Darwin', 'Recursos Humanos', 'Campus', 'Rectoría', 'Malvinas'];
         foreach ($nombres as $nombre){
             $sede = new Sede;
             $sede->nombre = $nombre;

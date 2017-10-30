@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Asistente;
-use App\Contacto;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,15 +17,11 @@ class AsistenteController extends Controller
      */
     public function index()
     {
-        // get all the asistentes
-        $asistentes = Asistente::
-                orderBy('apellido')
+        $asistentes = Asistente::orderBy('apellido')
                 ->orderBy('nombre')
                 ->paginate(20);
-
-        // load the view and pass the asistentes
-        return view('asistentes/index')
-                        ->with('asistentes', $asistentes);
+        
+        return view('asistentes/index')->with('asistentes', $asistentes);
     }
 
     /**
@@ -37,7 +31,6 @@ class AsistenteController extends Controller
      */
     public function create()
     {
-        // load the create form (app/views/asistentes/create.blade.php)
         return view('asistentes/create');
     }
 
@@ -48,43 +41,15 @@ class AsistenteController extends Controller
      */
     public function store(Request $request)
     {
-        // validate
-        $rules = array(
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'documento' => 'required|numeric|digits_between:7,8',
-            'email' => 'required|email'
-        );
-
-        $validator = Validator::make($request->all(), $rules);
-
-        // process the store
+        $validator = validar($request, true);
         if ($validator->fails()) {
+            // falla
             return redirect('asistentes/create')
                             ->withErrors($validator)
                             ->withInput($request->all());
         } else {
-            // store
-            $asistente = new Asistente;
-            $contacto = new Contacto;
-            $asistente->nombre = $request->input('nombre');
-            $asistente->apellido = $request->input('apellido');
-            $asistente->documento = $request->input('documento');
-            $contacto->email = $request->input('email');
-            $contacto->telefono = $request->input('telefono');
-
-            DB::beginTransaction();
-            try {
-                $asistente->save();
-                $asistente->contacto()->save($contacto);
-            } catch (\Exception $e) {
-                DB::rollback();
-                Session::flash('error', 'Inesperadamente, la transaccion fallo');
-                throw $e;
-            }
-            DB::commit();
-
-            // redirect
+            $this->guardarAsistente($request, new Asistente);
+            // éxito
             Session::flash('success', 'Asistente creado con éxito!');
             return redirect('asistentes');
         }
@@ -98,12 +63,8 @@ class AsistenteController extends Controller
      */
     public function show($id)
     {
-        // get the asistente
         $asistente = Asistente::findOrFail($id);
-
-        // show the view and pass the asistente to it
-        return view('asistentes.show')
-                        ->with('asistente', $asistente);
+        return view('asistentes.show')->with('asistente', $asistente);
     }
 
     /**
@@ -114,12 +75,8 @@ class AsistenteController extends Controller
      */
     public function edit($id)
     {
-        // get the asistente
         $asistente = Asistente::findOrFail($id);
-
-        // show the edit form and pass the asistente
-        return view('asistentes.edit')
-                        ->with('asistente', $asistente);
+        return view('asistentes.edit')->with('asistente', $asistente);
     }
 
     /**
@@ -130,43 +87,17 @@ class AsistenteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // validate
-        // read more on validation at http://laravel.com/docs/validation
-        $rules = array(
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'documento' => 'required|numeric|digits_between:7,8',
-            'email' => 'required',
-        );
-
-        $validator = Validator::make($request->all(), $rules);
-
-        // process the login
+        $validator = $this->validar($request, false, $id);
         if ($validator->fails()) {
+            // falla
             return redirect("asistentes/edit/$id")
                             ->withErrors($validator)
                             ->withInput($request->all());
         } else {
-            // store
+            // búsqueda y actualización
             $asistente = Asistente::find($id);
-            $asistente->nombre = $request->input('nombre');
-            $asistente->apellido = $request->input('apellido');
-            $asistente->documento = $request->input('documento');
-            $asistente->contacto->email = $request->input('email');
-            $asistente->contacto->telefono = $request->input('telefono');
-
-            DB::beginTransaction();
-            try {
-                $asistente->contacto->save();
-                $asistente->save();
-            } catch (\Exception $e) {
-                DB::rollback();
-                Session::flash('error', 'Inesperadamente, la transaccion fallo');
-                throw $e;
-            }
-            DB::commit();
-
-            // redirect
+            $this->guardarAsistente($request, $asistente);
+            // éxito
             Session::flash('success', 'Asistente editado con éxito!');
             return redirect('asistentes');
         }
@@ -187,6 +118,50 @@ class AsistenteController extends Controller
         // redirect
         Session::flash('success', 'Asistente eliminado con éxito!');
         return redirect('asistentes');
+    }
+
+    /**
+     * Valida los inputs de $request, tanto en un create ($isCreate &&  $id == null)
+     * como en un update ($id == $asistente->id && (!$isCreate)). 
+     * Es decir, es reutilizable.
+     * 
+     * @param Request $request : con los campos a validar. 
+     * @param boolean $isCreate : indica si es un store o un update.
+     * @param int $id : el id del asistente (en caso de ser update).
+     * @return Validator Validator, con el resultado de las reglas aplicadas a $request.
+     */
+    private function validar(Request $request, $isCreate, $id = null)
+    {
+        $rules = array(
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'email' => 'required|email',
+            'documento' => 'required|numeric|digits_between:7,8',
+        );
+        if ($isCreate) {
+            // Si es un create, el documento no debe encontrarse en la DB
+            array_push($rules, 
+                    ['documento' => Rule::unique('asistente')]);
+        } else {
+            // Idem para un update, pero hay que ignorar el $id del asistente 
+            array_push($rules, 
+                    ['documento' => Rule::unique('asistente')->ignore($id)]);
+        }
+        return Validator::make($request->all(), $rules);
+    }
+    
+    /**
+     * Setea los campos del asistente. Es reutilizable (store y update).
+     * @param Request $request : con los campos a persistir
+     * @param Asistente $asistente : el asistente a guardar (o actualizar)
+     */
+    private function guardarAsistente(Request $request, $asistente)
+    { 
+        $asistente->nombre = $request->input('nombre');
+        $asistente->apellido = $request->input('apellido');
+        $asistente->documento = $request->input('documento');
+        $asistente->email = $request->input('email');
+        $asistente->save();
     }
 
 }

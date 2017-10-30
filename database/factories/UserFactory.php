@@ -27,14 +27,7 @@ $factory->define(App\Asistente::class, function (Faker $faker) {
     return [
         'nombre' => $faker->firstname,
         'apellido' => $faker->lastName,
-        'documento' => $faker->numberBetween(1000000, 99999999)
-    ];
-});
-
-$factory->define(App\Contacto::class, function (Faker $faker) {
-
-    return [
+        'documento' => $faker->numberBetween(1000000, 99999999),
         'email' => $faker->email,
-        'telefono' => $faker->tollFreePhoneNumber,
     ];
 });

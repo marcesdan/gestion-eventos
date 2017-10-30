@@ -16,13 +16,7 @@
             <div class="row">
                 <label class="col-lg-3 col-form-label form-control-label field-label-responsive lead">Email</label>
                 <div class="col-lg-7">
-                    <input type="email" class="form-control" value="{{ $asistente->contacto->email }}" readonly>
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-lg-3 col-form-label form-control-label field-label-responsive lead">Teléfono</label>
-                <div class="col-lg-7">
-                    <input type="tel" class="form-control" value="{{ $asistente->contacto->telefono }}" readonly>
+                    <input type="email" class="form-control" value="{{ $asistente->email }}" readonly>
                 </div>
             </div>
         </div>

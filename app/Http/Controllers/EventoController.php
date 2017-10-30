@@ -18,13 +18,10 @@ class EventoController extends Controller
      */
     public function index()
     {
-        // input all the events
         $events = Evento::orderBy('fecha', 'desc')
                 ->paginate(20);
-
-        // load the view and pass the events
         return view('events/index')
-                        ->with('events', $events);
+                ->with('events', $events);
     }
 
     /**
@@ -34,8 +31,7 @@ class EventoController extends Controller
      */
     public function create()
     {
-
-        // load the create form (app/views/events/create.blade.php)
+        // Deberá escogerse una sede como lugar del evento.
         return view('events/create')
                         ->with('sedes', Sede::all());
     }
@@ -47,8 +43,7 @@ class EventoController extends Controller
      */
     public function store(Request $request)
     {
-        // validate
-        // read more on validation at http://laravel.com/docs/validation
+        //https://laravel.com/docs/validation
         $rules = array(
             'nombre' => 'required',
             'sede_id' => 'required',

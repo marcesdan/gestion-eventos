@@ -19,6 +19,7 @@ class CreateTableAsistente extends Migration
             $table->unsignedInteger('documento')->unique()->index();
             $table->string('nombre', 50);
             $table->string('apellido', 50);
+            $table->string('email',100);
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

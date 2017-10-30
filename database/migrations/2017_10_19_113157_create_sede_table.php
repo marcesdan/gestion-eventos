@@ -17,6 +17,7 @@ class CreateSedeTable extends Migration
         Schema::create('sede', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre', 80);
+            $table->string('direccion', 200);
             $table->engine = 'InnoDB';
         });
     }
