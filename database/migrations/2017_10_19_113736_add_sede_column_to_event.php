@@ -20,7 +20,7 @@ class AddSedeColumnToEvent extends Migration
                     ->after('descripcion');
             $table->foreign('sede_id')
                     ->references('id')
-                    ->on('Sede');
+                    ->on('sede');
         });
     }
 

@@ -20,6 +20,7 @@ class EventoController extends Controller
     {
         $events = Evento::orderBy('fecha', 'desc')
                 ->paginate(20);
+        
         return view('events/index')
                 ->with('events', $events);
     }
@@ -43,30 +44,15 @@ class EventoController extends Controller
      */
     public function store(Request $request)
     {
-        //https://laravel.com/docs/validation
-        $rules = array(
-            'nombre' => 'required',
-            'sede_id' => 'required',
-            'fecha' => 'required'
-        );
-
-        $validator = Validator::make($request->all(), $rules);
-
-        // process the login
+        $validator = $this->validar($request);
         if ($validator->fails()) {
             return redirect('events/create')
                             ->withErrors($validator)
                             ->withInput($request->all());
         } else {
-            // store
-            $event = new Evento;
-            $event->nombre = $request->input('nombre');
-            $event->descripcion = $request->input('descripcion');
-            $event->fecha = $request->input('fecha');
-            $event->sede_id = $request->input('sede_id');
-            $event->save();
-
-            // redirect
+            $evento = new Evento;
+            $this->guardarEvento($request, $evento);
+            
             Session::flash('success', 'El evento se ha creado con éxito!');
             return redirect('events');
         }
@@ -115,15 +101,7 @@ class EventoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // validate
-        // read more on validation at http://laravel.com/docs/validation
-        $rules = array(
-            'nombre' => 'required',
-            'fecha' => 'required',
-            'sede_id' => 'required'
-        );
-
-        $validator = Validator::make($request->all(), $rules);
+        $validator = $this->validar($request);
 
         /* Si falla, se redirecciona al usuario a la vista de edicion,
           con los datos originales (no los que ha intentado editar) */
@@ -133,12 +111,8 @@ class EventoController extends Controller
                             ->withInput($request->all());
         } else {
             // store
-            $event = Evento::find($id);
-            $event->nombre = $request->input('nombre');
-            $event->descripcion = $request->input('descripcion');
-            $event->fecha = $request->input('fecha');
-            $event->sede_id = $request->input('sede_id');
-            $event->save();
+            $evento = Evento::find($id);
+            $this->guardarEvento($request, $evento);
 
             // redirect
             Session::flash('success', 'Evento editado con éxito!');
@@ -163,4 +137,38 @@ class EventoController extends Controller
         return redirect('events');
     }
 
+    /**
+     * Valida los inputs de $request, tanto en un create ($isCreate &&  $id == null)
+     * como en un update ($id == $evento->id && (!$isCreate)). 
+     * Es decir, es reutilizable.
+     * 
+     * @param Request $request : con los campos a validar. 
+     * @param boolean $isCreate : indica si es un store o un update.
+     * @param int $id : el id del evento (en caso de ser update).
+     * @return Validator Validator, con el resultado de las reglas aplicadas a $request.
+     */
+    private function validar(Request $request)
+    {
+        $rules = array(
+            'nombre' => 'required',
+            'sede_id' => 'required',
+            'fecha' => 'required|date|after_or_equal:today',
+        );
+        return Validator::make($request->all(), $rules);
+    }
+    
+    /**
+     * Setea los campos del evento. Es reutilizable (store y update).
+     * @param Request $request : con los campos a persistir
+     * @param Asistente $evento : el evento a guardar (o actualizar)
+     */
+    private function guardarEvento(Request $request, $evento)
+    { 
+        $evento->nombre = $request->input('nombre');
+        $evento->descripcion = $request->input('descripcion');
+        $evento->fecha = $request->input('fecha');
+        $evento->sede()->associate($request->input('sede_id'));
+        $evento->save();
+    }
+    
 }

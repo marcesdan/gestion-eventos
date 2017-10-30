@@ -26,13 +26,7 @@
     <div class="form-group row">
       <label for="email" class="col-lg-3 col-form-label form-control-label field-label-responsive lead">Email</label>
       <div class="col-lg-7">
-        <input type="email" name="email" id="email" class="form-control" placeholder="email@ejemplo.com" value="{{ $asistente->contacto->email }}" required>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="telefono" class="col-lg-3 col-form-label form-control-label field-label-responsive lead">Teléfono</label>
-      <div class="col-lg-7">
-        <input type="tel" name="telefono" id="telefono" class="form-control" placeholder="telefono" value="{{ $asistente->contacto->telefono }}">
+        <input type="email" name="email" id="email" class="form-control" placeholder="email@ejemplo.com" value="{{ $asistente->email }}" required>
       </div>
     </div>
     <div class="form-group" style="text-align: center;">

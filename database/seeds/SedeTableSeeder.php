@@ -13,10 +13,24 @@ class SedeTableSeeder extends Seeder
      */
     public function run()
     {
-        $nombres = ['Darwin', 'Recursos Humanos', 'Campus', 'Rectoría', 'Malvinas'];
-        foreach ($nombres as $nombre){
+        $nombres = [
+            'Kanga',
+            'Recursos Humanos',
+            'Campus',
+            'Rectoría',
+            'Casa de las Artes'
+        ];
+        $direcciones = [
+            'Darwin y Canga',
+            'Olegario Andrade 421',
+            'Yrigoyen 879',
+            'Onas 450',
+            'Sánchez de Caballero 2098'];
+
+        for ($i = 0; $i < 5; $i++) {
             $sede = new Sede;
-            $sede->nombre = $nombre;
+            $sede->nombre = $nombres[$i];
+            $sede->direccion = $direcciones[$i];
             $sede->save();
         }
     }

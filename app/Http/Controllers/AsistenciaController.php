@@ -76,9 +76,11 @@ class AsistenciaController extends Controller
                             ->withErrors($validator)
                             ->with('event', $evento_id);
         } else {
-            // store
-            $asistente = Asistente::where('documento', '=', $request->input('documento'))->first();
+            $asistente = Asistente
+                    ::where('documento', '=', $request->input('documento'))
+                    ->first();
             $asistente->eventos()->attach($evento_id);
+            
             // redirect
             Session::flash('success', 'Successfully created asistencia!');
             return redirect('events');
@@ -95,7 +97,9 @@ class AsistenciaController extends Controller
     {
         $asistente = Asistente::find($asistente_id);
         $asistente->eventos()->detach($evento_id);
+        
         // DB::table('asistente_evento')->where("$asistente_id", '=', "$evento_id")->delete();
+        
         // redirect
         Session::flash('message', 'Successfully deleted the asistencia!');
         return redirect("asistencias/$evento_id");

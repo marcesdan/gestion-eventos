@@ -18,7 +18,8 @@ $factory->define(App\Evento::class, function (Faker $faker) {
     return [
         'nombre' => $faker->catchPhrase,
         'descripcion' => $faker->paragraph,
-        'fecha' => $faker->dateTime($max = 'now', $timezone = date_default_timezone_get())
+        'fecha' => $faker->dateTime($max = 'now', $timezone = date_default_timezone_get()),
+        //'sede_id' => $faker->numberBetween(1,5),
     ];
 });
 

@@ -6,6 +6,7 @@ use App\Asistente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class AsistenteController extends Controller
 {
@@ -41,7 +42,7 @@ class AsistenteController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = validar($request, true);
+        $validator = $this->validar($request, true);
         if ($validator->fails()) {
             // falla
             return redirect('asistentes/create')
